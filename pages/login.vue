@@ -20,7 +20,7 @@
     </v-card-text>
     <div class="px-4 pt-0">
       <v-btn color="info" width="288">Ingresar</v-btn>
-      <v-btn color="success" width="288" outlined class="mt-4">Registrarse</v-btn>
+      <v-btn color="success" width="288" outlined class="mt-4" :to="'/signup'">Registrarse</v-btn>
       <hr class="my-7 gradient">
       <p class="text-center">¿Olvidaste tu contraseña?
         <a class="link" href="">Recupérala</a>

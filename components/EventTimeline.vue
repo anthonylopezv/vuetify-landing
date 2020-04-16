@@ -32,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .text {
+    color: black;
+  }
+</style>
