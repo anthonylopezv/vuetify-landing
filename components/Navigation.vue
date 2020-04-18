@@ -11,9 +11,9 @@
     >
       {{ link.label }}
     </v-btn>
-    <v-btn @click="toggleTheme" text rounded>
+    <!-- <v-btn @click="toggleTheme" text rounded>
       Tema
-    </v-btn>      
+    </v-btn>       -->
   </v-app-bar>
 </template>
 
