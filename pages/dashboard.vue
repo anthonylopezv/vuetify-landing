@@ -4,7 +4,12 @@
 
     <v-row>
       <v-col cols="12">
-        <SalesGraph />
+        <SalesGraph 
+          :cases="cases"
+          :deaths="deaths"
+          :initDate="initDate"
+          :finishDate="finishDate"
+        />
       </v-col>
     </v-row>
 
@@ -41,20 +46,31 @@
 </template>
 
 <script>
+import moment from "moment";
+
 import EmployeesTable from '../components/EmployeesTable'
-// import EventTimeline from '../components/EventTimeline'
 import SalesGraph from '../components/SalesGraph'
 import StatisticCard from '../components/StatisticCard'
 
 import employeesData from '../data/employees.json'
-import timelineData from '../data/timeline.json'
 import salesData from '../data/sales.json'
 import statisticsData from '../data/statistics.json'
 
 export default {
+  async asyncData({ $axios }) {
+    const { data } = await $axios.get('https://api.covid19api.com/live/country/peru/status/confirmed')
+
+    const cases = data.map(c => c.Confirmed)
+    const deaths = data.map(d => d.Deaths)
+
+    const dates = data.map((date) => moment(date.Date).format("DD/MM/YYYY"))
+    const initDate = dates[0]
+    const finishDate = dates[dates.length - 1]
+
+    return { cases, deaths, initDate, finishDate }
+  },
   components: {
     EmployeesTable,
-    // EventTimeline,
     SalesGraph,
     StatisticCard
   },
@@ -67,8 +83,7 @@ export default {
         title: ''
       },
       snackbar: false,
-      statistics: statisticsData,
-      timeline: timelineData
+      statistics: statisticsData
     }
   },
   methods: {

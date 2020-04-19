@@ -11,24 +11,36 @@
       <v-tab-item :value="'tab-1'">
         <v-card
           class="mx-auto text-center" 
-          color="cyan" 
+          color="yellow darken-2" 
           dark>
           <v-card-text>
-            <v-sheet color="rgba(0, 0, 0, .12)">
+            <v-sheet color="rgba(0, 0, 0, .12)" >
               <v-sparkline
-                :value="value"
-                :labels="value"
-                color="rgba(255, 255, 255, .7)"
+                :value="cases"
+                color="yellow lighten-4"
                 height="100"
-                padding="24"
+                line-width="1"
+                padding= "24"
                 stroke-linecap="round"
-                smooth
-              />
+                smooth= "0"
+                :fill= "fill"
+                label-size= "8"
+              >
+                <template v-slot:label="item">
+                  {{ item.value }}
+                  
+                </template>
+              </v-sparkline>
             </v-sheet>
           </v-card-text>
 
           <v-card-text class="text-center">
-            <div class="display-1"># casos confirmados por día</div>
+            <div class="display-1"># Casos confirmados por día</div>
+            <div>
+              <h2>
+                Del {{ initDate }} hasta el {{ finishDate }}
+              </h2>
+            </div>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -36,24 +48,36 @@
       <v-tab-item :value="'tab-2'">
         <v-card
           class="mx-auto text-center" 
-          color="teal" 
+          color="red darken-3" 
           dark>
           <v-card-text>
-            <v-sheet color="rgba(0, 0, 0, .12)">
+            <v-sheet color="rgba(0, 0, 0, .12)" >
               <v-sparkline
-                :value="value"
-                :labels="value"
-                color="rgba(255, 255, 255, .7)"
+                :value="deaths"
+                color="red lighten-4"
                 height="100"
-                padding="24"
+                line-width="1"
+                padding= "24"
                 stroke-linecap="round"
-                smooth
-              />
+                smooth= "0"
+                :fill= "fill"
+                label-size= "8"
+              >
+                <template v-slot:label="item">
+                  {{ item.value }}
+                  
+                </template>
+              </v-sparkline>
             </v-sheet>
           </v-card-text>
 
           <v-card-text class="text-center">
-            <div class="display-1"># fallecimientos por día</div>
+            <div class="display-1"># Fallecimientos por día</div>
+            <div>
+              <h2>
+                Del {{ initDate }} hasta el {{ finishDate }}
+              </h2>
+            </div>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -66,17 +90,30 @@
 <script>
 export default {
   name: 'SalesGraph',
+  props: {
+    initDate: String,
+    finishDate: String,
+    cases: {
+      type: Array,
+      required: true
+    },
+    deaths: {
+      type: Array,
+      required: true
+    }
+  },
   data: () => ({
-      tab: null,
-      value: [
-        423,
-        446,
-        675,
-        510,
-        590,
-        610,
-        760,
-      ],
-    }),
+    tab: null,
+    fill: true,
+    value: [
+      423,
+      446,
+      675,
+      510,
+      590,
+      610,
+      760,
+    ],
+  })
 }
 </script>
